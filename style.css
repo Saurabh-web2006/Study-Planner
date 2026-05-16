@@ -1,0 +1,1033 @@
+/* =============================================
+   STUDY BLOOM - Main Stylesheet
+   made by me for my college project :)
+   ============================================= */
+
+
+/* resetting everything to zero first */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* smooth scrolling because it looks nice */
+html {
+  scroll-behavior: smooth;
+}
+
+/* basic body styling */
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: #faf5ef;
+  color: rgb(74, 63, 53);
+  min-height: 100vh;
+}
+
+
+/* ---------- ANIMATIONS ---------- */
+
+/* this one makes things slide up and fade in */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* simple fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* pop in effect - looks cool on buttons */
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* zoom in for the modals */
+@keyframes modalZoom {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+/* ---------- NAVBAR ---------- */
+
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: #fffbf5;
+  border-bottom: 2px solid rgb(232, 221, 211);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  animation: fadeIn 0.5s ease;
+}
+
+/* the logo text */
+.logo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: rgb(212, 184, 224);
+  letter-spacing: 2px;
+}
+
+/* not using these right now but keeping just in case */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 18px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgb(138, 127, 117);
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  background: rgb(212, 184, 224);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+
+/* ---------- LOGIN/SIGNUP NAVBAR BUTTONS ---------- */
+
+/* container for the right side of navbar */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* styling for all the auth buttons in navbar */
+.nav-auth-btn {
+  border: none;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+}
+
+.nav-auth-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+/* login button - has a border instead of filled bg */
+.nav-auth-btn.login-btn {
+  background: transparent;
+  border: 2px solid rgb(212, 184, 224);
+  color: rgb(152, 120, 168);
+}
+
+.nav-auth-btn.login-btn:hover {
+  background: rgb(212, 184, 224);
+  color: #fff;
+}
+
+/* signup button - gradient background */
+.nav-auth-btn.signup-btn {
+  background: linear-gradient(135deg, rgb(212, 184, 224), rgb(184, 224, 200));
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-auth-btn.signup-btn:hover {
+  background: linear-gradient(135deg, rgb(192, 160, 208), rgb(160, 208, 180));
+}
+
+/* logout button - pinkish */
+.nav-auth-btn.logout-btn {
+  background: rgb(242, 198, 208);
+  color: #fff;
+  font-weight: bold;
+}
+
+.nav-auth-btn.logout-btn:hover {
+  background: rgb(220, 170, 185);
+}
+
+/* the greeting text that says hello username */
+.user-greeting {
+  font-size: 0.85rem;
+  color: rgb(152, 120, 168);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+/* container for username + logout button */
+#user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeIn 0.4s ease;
+}
+
+
+/* ---------- DASHBOARD GRID ---------- */
+
+#dashboard {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns */
+  gap: 18px;
+}
+
+/* each card in the dashboard */
+.card {
+  background: #fffbf5;
+  border: 2px solid rgb(232, 221, 211);
+  border-radius: 14px;
+  padding: 18px;
+  animation: fadeInUp 0.5s ease both;
+  transition: transform 0.2s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+/* hover effect on cards */
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* staggered animation delays for each card so they don't all pop in at the same time */
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+
+/* title at top of each card */
+.card-title {
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-date {
+  font-size: 0.8rem;
+  color: rgb(138, 127, 117);
+  font-weight: normal;
+}
+
+
+/* ---------- CALENDAR CARD ---------- */
+
+.calendar-card {
+  border-color: rgb(212, 184, 224);
+  position: relative;
+}
+
+/* previous/next month buttons */
+.cal-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.title-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cal-nav button {
+  background: rgb(212, 184, 224);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.cal-nav button:hover {
+  transform: scale(1.15);
+}
+
+/* the actual calendar table */
+#calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+#calendar-table th {
+  padding: 4px;
+  color: rgb(138, 127, 117);
+  font-weight: normal;
+  font-size: 0.75rem;
+}
+
+#calendar-table td {
+  padding: 3px;
+  text-align: center;
+  vertical-align: top;
+  height: 48px;
+  border: 1px solid rgb(232, 221, 211);
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s;
+}
+
+#calendar-table td:hover {
+  background: #f3ece3;
+}
+
+/* highlight today's date */
+#calendar-table td.today {
+  background: #ede4f7;
+  font-weight: bold;
+}
+
+/* the little event tags on calendar days */
+.cal-event {
+  font-size: 0.55rem;
+  padding: 1px 3px;
+  border-radius: 4px;
+  margin-top: 1px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  animation: popIn 0.3s ease;
+}
+
+/* different event colors */
+.cal-event.purple { background: rgb(212, 184, 224); color: #fff; }
+.cal-event.green { background: rgb(184, 224, 200); }
+.cal-event.pink { background: rgb(242, 198, 208); }
+.cal-event.yellow { background: rgb(245, 230, 163); }
+
+/* the form that pops up when you click a date to add an event */
+.add-event-form {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 2px solid rgb(212, 184, 224);
+  border-radius: 10px;
+  padding: 12px;
+  z-index: 20;
+  width: 220px;
+  text-align: center;
+  animation: popIn 0.25s ease;
+}
+
+.add-event-form h3 {
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.add-event-form input, .add-event-form select {
+  width: 100%;
+  padding: 5px 8px;
+  margin-bottom: 6px;
+  border: 1px solid rgb(232, 221, 211);
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.form-btns {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.form-btns button {
+  padding: 4px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: transform 0.15s;
+}
+
+.form-btns button:hover { transform: scale(1.05); }
+.form-btns button:first-child { background: rgb(212, 184, 224); color: #fff; }
+.form-btns button:last-child { background: rgb(232, 221, 211); }
+
+
+/* ---------- HABIT TRACKER CARD ---------- */
+
+.habit-card {
+  border-color: rgb(184, 224, 200);
+}
+
+.habit-add {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.habit-add input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid rgb(232, 221, 211);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+/* the + button to add habits and subjects */
+.habit-add button, #add-subject-btn {
+  background: rgb(184, 224, 200);
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.habit-add button:hover, #add-subject-btn:hover {
+  transform: scale(1.1);
+}
+
+/* the habit tracking table */
+#habit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+#habit-table th {
+  padding: 4px;
+  font-weight: normal;
+  color: rgb(138, 127, 117);
+  font-size: 0.7rem;
+}
+
+#habit-table td {
+  padding: 4px;
+  text-align: center;
+}
+
+#habit-table td:first-child {
+  text-align: left;
+  font-weight: bold;
+}
+
+/* the circular checkboxes for habits */
+.habit-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgb(184, 224, 200);
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.habit-check:hover {
+  transform: scale(1.2);
+}
+
+/* when habit is checked - green circle with checkmark */
+.habit-check.checked {
+  background: rgb(184, 224, 200);
+  color: #fff;
+  animation: popIn 0.25s ease;
+}
+
+/* delete button for habits (the X) */
+.delete-habit-btn {
+  background: none;
+  border: none;
+  color: rgb(138, 127, 117);
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.delete-habit-btn:hover {
+  color: red;
+  transform: scale(1.2);
+}
+
+
+/* ---------- SUBJECT PROGRESS CARD ---------- */
+
+.subject-card {
+  border-color: rgb(242, 198, 208);
+}
+
+/* grid layout for subjects - 2 columns */
+#subject-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* each individual subject item */
+.subject-item {
+  background: #fdf3f5;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  animation: fadeInUp 0.3s ease both;
+  transition: transform 0.2s, padding-right 0.3s ease;
+}
+
+/* on hover, make room for the buttons that slide in */
+.subject-item:hover {
+  transform: scale(1.02);
+  padding-right: 90px;
+}
+
+.subject-item h4 {
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* the progress bar background */
+.progress-bar {
+  height: 8px;
+  background: rgb(232, 221, 211);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* the filled part of the progress bar */
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.subject-detail {
+  font-size: 0.65rem;
+  color: rgb(138, 127, 117);
+  margin-top: 3px;
+  text-align: right;
+}
+
+/* buttons that slide in from the right on hover (up, down, delete) */
+.subject-btns {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 8px;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* show buttons when hovering the subject item */
+.subject-item:hover .subject-btns {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* all subject action buttons are circles */
+.subject-btns button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.2s;
+}
+
+/* colors for each button */
+.subject-btns .sub-up {
+  background: rgb(184, 224, 200);
+  color: #fff;
+}
+.subject-btns .sub-down {
+  background: rgb(245, 230, 163);
+  color: rgb(74, 63, 53)
+}
+.subject-btns .sub-del {
+  background: rgb(242, 198, 208);
+  color: #fff;
+}
+
+.subject-btns button:hover {
+  transform: scale(1.2);
+}
+
+/* add subject form at bottom of card */
+.subject-add {
+  display: flex;
+  gap: 4px;
+}
+
+.subject-add input {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid rgb(232, 221, 211);
+  border-radius: 8px;
+  font-size: 0.78rem;
+}
+
+.subject-add input[type="number"] {
+  width: 50px;
+  flex: none;
+}
+
+
+/* ---------- MOTIVATION QUOTES CARD ---------- */
+
+.motivation-card {
+  border-color: rgb(245, 230, 163);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-box {
+  padding: 16px;
+}
+
+.quote-deco {
+  font-size: 1.2rem;
+  color: rgb(212, 184, 224);
+}
+
+.quote-text {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 10px 0 6px;
+  line-height: 1.5;
+  animation: fadeIn 0.5s ease;
+}
+
+.quote-author {
+  color: rgb(138, 127, 117);
+  font-size: 0.85rem;
+  animation: fadeIn 0.6s ease;
+}
+
+/* new quote button */
+#new-quote-btn {
+  background: rgb(245, 230, 163);
+  border: none;
+  border-radius: 8px;
+  padding: 6px 18px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+#new-quote-btn:hover {
+  background: #edd96e;
+  transform: scale(1.05);
+}
+
+
+/* ---------- CARD POPUP MODAL (when you click a card) ---------- */
+
+/* the dark background overlay */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* when modal is open */
+#modal-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* for the closing animation */
+#modal-overlay.fade-out {
+  opacity: 0;
+}
+
+/* the white box in the middle */
+#modal-content {
+  background: #fffbf5;
+  border-radius: 18px;
+  padding: 32px 36px;
+  max-width: 850px;
+  width: 92%;
+  max-height: 88vh;
+  overflow-y: auto;
+  border: 2px solid rgb(232, 221, 211);
+  animation: modalZoom 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.1);
+  position: relative;
+}
+
+/* the X button to close modal */
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgb(232, 221, 211);
+  background: #fffbf5;
+  color: rgb(138, 127, 117);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  z-index: 10;
+}
+
+.modal-close-btn:hover {
+  background: rgb(242, 198, 208);
+  color: #fff;
+  border-color: rgb(242, 198, 208);
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* remove card styling when inside modal so it doesnt look weird */
+#modal-content .card {
+  border: none;
+  padding: 0;
+  animation: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+#modal-content .card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* make things bigger inside the modal */
+#modal-content #calendar-table td { height: 60px; }
+#modal-content .subject-item { padding: 14px; }
+
+
+/* ============================================ */
+/* LOGIN / SIGNUP MODAL STYLES                  */
+/* ============================================ */
+
+/* the blurry overlay behind the login/signup form */
+#auth-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#auth-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+#auth-overlay.fade-out {
+  opacity: 0;
+}
+
+/* the actual form box */
+#auth-modal {
+  background: linear-gradient(145deg, #fffbf5 0%, #faf0f5 50%, #f5f0fa 100%);
+  border-radius: 22px;
+  padding: 36px 40px 30px;
+  max-width: 420px;
+  width: 90%;
+  border: 2px solid rgb(232, 221, 211);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.15);
+  animation: modalZoom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+/* close button on auth modal */
+.auth-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgb(232, 221, 211);
+  background: #fffbf5;
+  color: rgb(138, 127, 117);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.auth-close-btn:hover {
+  background: rgb(242, 198, 208);
+  color: #fff;
+  border-color: rgb(242, 198, 208);
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* header section with the flower icon and title */
+.auth-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+/* the big flower icon at the top */
+.auth-flower {
+  font-size: 2rem;
+  color: rgb(212, 184, 224);
+  display: block;
+  margin-bottom: 4px;
+  animation: popIn 0.5s ease;
+}
+
+.auth-header h2 {
+  font-size: 1.4rem;
+  color: rgb(74, 63, 53);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.auth-subtitle {
+  font-size: 0.8rem;
+  color: rgb(138, 127, 117);
+}
+
+/* each input field group */
+.auth-field {
+  margin-bottom: 14px;
+}
+
+.auth-field label {
+  display: block;
+  font-size: 0.75rem;
+  color: rgb(138, 127, 117);
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+/* the actual text inputs */
+.auth-field input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid rgb(232, 221, 211);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  background: #fff;
+  color: rgb(74, 63, 53);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+/* purple glow when you click on the input */
+.auth-field input:focus {
+  border-color: rgb(212, 184, 224);
+  box-shadow: 0 0 0 3px rgba(212, 184, 224, 0.25);
+}
+
+/* wrapper for password + eye toggle */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 42px;
+}
+
+/* the eye button to show/hide password */
+.toggle-pw {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  padding: 4px;
+}
+
+.toggle-pw:hover {
+  opacity: 0.9;
+}
+
+/* error message text (red) */
+.auth-error {
+  color: #d44;
+  font-size: 0.75rem;
+  min-height: 18px;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+/* the big login/signup button */
+.auth-submit-btn {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgb(212, 184, 224), rgb(192, 160, 210));
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+  margin-top: 4px;
+}
+
+.auth-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 184, 224, 0.4);
+}
+
+/* signup button is green instead of purple */
+.auth-submit-btn.signup {
+  background: linear-gradient(135deg, rgb(184, 224, 200), rgb(160, 208, 180));
+}
+
+.auth-submit-btn.signup:hover {
+  box-shadow: 0 6px 20px rgba(184, 224, 200, 0.4);
+}
+
+/* the "dont have account? sign up" text */
+.auth-switch {
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgb(138, 127, 117);
+  margin-top: 14px;
+}
+
+.auth-switch a {
+  color: rgb(152, 120, 168);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-switch a:hover {
+  color: rgb(120, 90, 140);
+  text-decoration: underline;
+}
+
+
+/* ---------- DASHBOARD HIDDEN (when not logged in) ---------- */
+
+/* hide the dashboard when user is not logged in */
+#dashboard.hidden-dashboard {
+  display: none;
+}
+
+/* the welcome message shown when not logged in */
+.welcome-message {
+  text-align: center;
+  padding: 100px 20px;
+  animation: fadeIn 0.6s ease;
+}
+
+.welcome-message h2 {
+  font-size: 1.6rem;
+  color: rgb(212, 184, 224);
+  margin-bottom: 10px;
+}
+
+.welcome-message p {
+  color: rgb(138, 127, 117);
+  font-size: 1rem;
+}
+
+
+/* ---------- RESPONSIVE - for small screens ---------- */
+
+@media (max-width: 768px) {
+  #dashboard {
+    grid-template-columns: 1fr; /* 1 column on mobile */
+  }
+  .nav-links {
+    display: none;
+  }
+  #modal-content {
+    width: 96%;
+    padding: 20px;
+  }
+  #auth-modal {
+    width: 94%;
+    padding: 24px 20px;
+  }
+  .nav-auth-btn {
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+  .user-greeting {
+    font-size: 0.75rem;
+  }
+}

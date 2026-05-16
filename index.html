@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Bloom - Student Dashboard</title>
+  <!-- linking our css file -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- this is the navigation bar at the top -->
+  <div id="navbar">
+    <div class="nav-left">
+      <span class="logo">✿ STUDY BLOOM ✿</span>
+    </div>
+
+    <!-- login signup buttons on right side -->
+    <div class="nav-right">
+
+      <!-- these buttons show when user is NOT logged in -->
+      <div id="auth-buttons" style="gap: 10px">
+        <button id="login-nav-btn" class="nav-auth-btn login-btn" onclick="openAuthModal('login')">Log In</button>
+        <button id="signup-nav-btn" class="nav-auth-btn signup-btn" onclick="openAuthModal('signup')">Sign Up</button>
+      </div>
+
+      <!-- this part shows when user IS logged in -->
+      <div id="user-info" style="display:none;">
+        <span id="user-greeting" class="user-greeting">✿ Hello, User</span>
+        <button id="logout-btn" class="nav-auth-btn logout-btn" onclick="logoutUser()">Log Out</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- main dashboard area with all the cards -->
+  <div id="dashboard">
+
+    <!-- ========== CALENDAR CARD ========== -->
+    <div class="card calendar-card" id="calendar-section">
+      <h2 class="card-title">
+        <span id="cal-month-year">OCTOBER 2024</span>
+        <div class="title-right">
+          <span class="card-date" id="cal-today"></span>
+          <div class="cal-nav">
+            <button id="prev-month" title="Previous">◀</button>
+            <button id="next-month" title="Next">▶</button>
+          </div>
+        </div>
+      </h2>
+      <table id="calendar-table">
+        <thead>
+          <tr>
+            <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+          </tr>
+        </thead>
+        <tbody id="calendar-body"></tbody>
+      </table>
+      <!-- form to add events - hidden by default -->
+      <div class="add-event-form" id="add-event-form" style="display:none;">
+        <h3>Add Event on <span id="event-date-label"></span></h3>
+        <input type="text" id="event-title-input" placeholder="Event title..." maxlength="20">
+        <select id="event-color-select">
+          <option value="purple">Purple</option>
+          <option value="green">Green</option>
+          <option value="pink">Pink</option>
+          <option value="yellow">Yellow</option>
+        </select>
+        <div class="form-btns">
+          <button id="save-event-btn">Save</button>
+          <button id="cancel-event-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== HABIT TRACKER CARD ========== -->
+    <div class="card habit-card" id="habits-section">
+      <h2 class="card-title">HABIT TRACKER</h2>
+      <div class="habit-add">
+        <input type="text" id="new-habit-input" placeholder="Add habit..." maxlength="15">
+        <button id="add-habit-btn">+</button>
+      </div>
+      <table id="habit-table">
+        <thead>
+          <tr>
+            <th>Habit</th>
+            <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="habit-body"></tbody>
+      </table>
+    </div>
+
+    <!-- ========== SUBJECT PROGRESS CARD ========== -->
+    <div class="card subject-card" id="subjects-section">
+      <h2 class="card-title">SUBJECT PROGRESS</h2>
+      <div id="subject-list"></div>
+      <div class="subject-add">
+        <input type="text" id="new-subject-name" placeholder="Subject name" maxlength="15">
+        <input type="number" id="new-subject-total" placeholder="Total chapters" min="1">
+        <button id="add-subject-btn">+</button>
+      </div>
+    </div>
+
+    <!-- ========== MOTIVATION QUOTES CARD ========== -->
+    <div class="card motivation-card" id="motivation-section">
+      <h2 class="card-title">MOTIVATION HUB</h2>
+      <div class="quote-box">
+        <span class="quote-deco">✿</span>
+        <p id="quote-text" class="quote-text"></p>
+        <p id="quote-author" class="quote-author"></p>
+        <span class="quote-deco">✿</span>
+      </div>
+      <button id="new-quote-btn">New Quote ✨</button>
+    </div>
+
+  </div>
+
+  <!-- this is for the card popup thing when you click on a card -->
+  <div id="modal-overlay">
+    <div id="modal-content"></div>
+  </div>
+
+
+  <!-- ============================================ -->
+  <!-- LOGIN AND SIGNUP MODAL (pops up in center)   -->
+  <!-- ============================================ -->
+  <div id="auth-overlay">
+    <div id="auth-modal">
+      <button class="auth-close-btn" onclick="closeAuthModal()">✕</button>
+
+      <div id="auth-modal-inner">
+
+        <!-- ---- LOGIN FORM ---- -->
+        <div id="login-form" class="auth-form">
+          <div class="auth-header">
+            <span class="auth-flower">✿</span>
+            <h2>Welcome Back</h2>
+            <p class="auth-subtitle">Log in to your Study Bloom account</p>
+          </div>
+          <div class="auth-field">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" placeholder="Enter your username" maxlength="20">
+          </div>
+          <div class="auth-field">
+            <label for="login-password">Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" placeholder="Enter your password" maxlength="30">
+              <button class="toggle-pw" onclick="togglePassword('login-password', this)" type="button">👁</button>
+            </div>
+          </div>
+          <p id="login-error" class="auth-error"></p>
+          <button class="auth-submit-btn" onclick="loginUser()">Log In ✿</button>
+          <p class="auth-switch">Don't have an account? <a href="#" onclick="switchAuthForm('signup'); return false;">Sign Up</a></p>
+        </div>
+
+        <!-- ---- SIGNUP FORM ---- -->
+        <div id="signup-form" class="auth-form" style="display:none;">
+          <div class="auth-header">
+            <span class="auth-flower">✿</span>
+            <h2>Create Account</h2>
+            <p class="auth-subtitle">Join Study Bloom and start blooming</p>
+          </div>
+          <div class="auth-field">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" placeholder="Choose a username" maxlength="20">
+          </div>
+          <div class="auth-field">
+            <label for="signup-password">Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="signup-password" placeholder="Create a password" maxlength="30">
+              <button class="toggle-pw" onclick="togglePassword('signup-password', this)" type="button">👁</button>
+            </div>
+          </div>
+          <div class="auth-field">
+            <label for="signup-confirm">Confirm Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="signup-confirm" placeholder="Confirm your password" maxlength="30">
+              <button class="toggle-pw" onclick="togglePassword('signup-confirm', this)" type="button">👁</button>
+            </div>
+          </div>
+          <p id="signup-error" class="auth-error"></p>
+          <button class="auth-submit-btn signup" onclick="signupUser()">Sign Up ✿</button>
+          <p class="auth-switch">Already have an account? <a href="#" onclick="switchAuthForm('login'); return false;">Log In</a></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- our javascript file goes here at the bottom so html loads first -->
+  <script src="script.js"></script>
+</body>
+</html>
